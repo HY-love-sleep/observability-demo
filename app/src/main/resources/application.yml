@@ -20,7 +20,8 @@ management:
     sampling:
       probability: 1.0
 
-otel:
-  exporter:
-    otlp:
-      endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://tempo:4317}
+  otlp:
+    tracing:
+      endpoint: http://tempo:4317
+      protocol: http-protobuf
+

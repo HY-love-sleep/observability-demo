@@ -8,7 +8,10 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class DemoController {
 
-    private final RestTemplate client = new RestTemplate();
+    private final RestTemplate client;
+    public DemoController(RestTemplate client) {
+        this.client = client;
+    }
 
     @Observed(name = "demo.server.process")
     @GetMapping("/server")

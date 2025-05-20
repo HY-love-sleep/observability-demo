@@ -1,0 +1,33 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": null,
+    "title": "HTTP Server Requests",
+    "tags": ["observability", "http"],
+    "timezone": "browser",
+    "schemaVersion": 30,
+    "version": 0,
+    "refresh": "5s",
+    "panels": [
+      {
+        "id": 1,
+        "type": "graph",
+        "title": "Request Count by URI",
+        "datasource": "Prometheus",
+        "gridPos": { "x": 0, "y": 0, "w": 24, "h": 9 },
+        "targets": [
+          {
+            "expr": "http_server_requests_seconds_count{application=\"app-a\"}",
+            "legendFormat": "{{uri}}",
+            "refId": "A"
+          }
+        ],
+        "lines": true,
+        "linewidth": 2,
+        "fill": 1,
+        "nullPointMode": "null"
+      }
+    ]
+  },
+  "overwrite": false
+}

@@ -1,0 +1,39 @@
+# tempo.yaml
+
+# 1. HTTP 接口端口
+server:
+  http_listen_port: 3200                   # Tempo HTTP 监听端口:contentReference[oaicite:0]{index=0}
+
+# 2. 分发器（Distributor）：接收 OTLP 协议
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        http:                             # HTTP OTLP 接收
+        grpc:                             # gRPC OTLP 接收:contentReference[oaicite:1]{index=1}
+
+# 3. 可选：Compactor，配置块合并保留时长
+compactor:
+  compaction:
+    block_retention: 48h                  # 保留 48 小时的 trace 块:contentReference[oaicite:2]{index=2}
+
+# 4. 可选：metrics_generator，将 span 转为 Prometheus 指标并写入远端
+metrics_generator:
+  registry:
+    external_labels:
+      source: tempo
+      cluster: local
+  storage:
+    path: /var/tempo/generator/wal        # local WAL 存储路径
+    remote_write:
+      - url: http://localhost:9090/api/v1/write
+        send_exemplars: true              # 启用 exemplar 写入 Prometheus:contentReference[oaicite:3]{index=3}
+
+# 5. 存储层（Storage）：本地文件系统
+storage:
+  trace:
+    backend: local                        # 使用本地存储 backend:contentReference[oaicite:4]{index=4}
+    local:
+      path: /var/tempo/blocks             # trace 块存储目录
+    wal:
+      path: /var/tempo/wal                # WAL 日志存储目录
