@@ -1,0 +1,13 @@
+<configuration>
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <batchSize>100</batchSize>
+        <url>http://loki:3100/loki/api/v1/push</url>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="LOKI"/>
+    </root>
+    <!-- 自动注入 traceId/spanId 到 MDC -->
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} trace_id=%mdc{trace_id:-} span_id=%mdc{span_id:-} %5p [%t] %logger{36} - %msg%n</pattern>
+    </encoder>
+</configuration>

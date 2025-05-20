@@ -8,8 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>observability-server</module>
-        <module>observability-client</module>
+        <module>app</module>
     </modules>
     <properties>
         <java.version>17</java.version>
